@@ -6,3 +6,11 @@ In this Example, Person is going to add one stop for Coffee or Donuts.
 ## Without Waypoint.
 In this Example, Person is going to spcific location non-stop.
 ![alt tag](https://github.com/yugalk14/GoogleMaps1/blob/master/Screen%20Shot%202017-01-11%20at%206.03.34%20PM.png)
+
+## How to run this Application. 
+It's Easy and Straight forward application.
+* Clone it/ Download it
+* Run render.html file
+* Redirect http://localhost:5000/ in your browser.
+* Make your selection for stopage.
+* Hit the Submit button.
