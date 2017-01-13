@@ -81,11 +81,14 @@
  <div id="floating-panel">
     <h2>Hello Aspirants!! So, Are you set to go to ClickTime Office.</h2>
     <b>Current Location:</b>
+    <!-- Collecting the rendered Data from the python file -->
     <textarea id="start">{{ start }}</textarea>
     <textarea id="lat" style="display: none;">{{ lat }}</textarea>
     <textarea id="lng" style="display: none;">{{ lng }}</textarea>
     <b>ClickTime Location: </b>
+    <!-- Giving the Predefine location of the ClickTime Office, You can change it if you want in the run time. -->
     <textarea id="end">282 2nd Street 4th floor, San Francisco, CA 94105</textarea>
+    <!-- Asking the user if he/she wants to stop at some point. -->
     <div id="queDiv">
       <b>Do you want to stop for Coffee or Donuts?</b>
       <select id="wypQ" onchange="displayWayp()">
@@ -108,22 +111,30 @@
     <div id="right-panel"></div>
     <div id="map"></div>
     <script>
-    document.getElementById("displayDiv").style.display = "none";
-    function displayWayp(){
-      if (document.getElementById("wypQ").value=="Yes"){
-        document.getElementById("displayDiv").style.display = "block";
-        document.getElementById("queDiv").style.display = "none";
+      // Removing/Showing the stop option based on the user decision.
+      document.getElementById("displayDiv").style.display = "none";
+      function displayWayp()
+      {
+        if (document.getElementById("wypQ").value=="Yes")
+        {
+          //if user wants to stop then showing the textarea for input and removing the dropdown question from the webpage.
+          document.getElementById("displayDiv").style.display = "block";
+          document.getElementById("queDiv").style.display = "none";
+        }
+        else
+        {
+          document.getElementById("displayDiv").style.display = "none";
+        }
       }
-      else{
-        document.getElementById("displayDiv").style.display = "none";
-      }
-    }
-      
-      function initMap() {
+      //Initializing the Map.
+        
+      function initMap() 
+      {
 
         // var myLatLng = {lat: document.getElementById("lat").value, lng: document.getElementById("lng").value};
         
-        var map = new google.maps.Map(document.getElementById('map'), {
+        var map = new google.maps.Map(document.getElementById('map'), 
+        {
           zoom: 7,
           center: {lat: 37.331338, lng: -121.888831}
         });
@@ -141,11 +152,16 @@
         var control = document.getElementById('floating-panel');
         control.style.display = 'block';
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
-
-        document.getElementById("submit").onclick = function() {
-          if (document.getElementById("wypQ").value=="No") {
+        //Making the choice between to call stop jaourney or without stop journey.
+        document.getElementById("submit").onclick = function() 
+        {
+          if (document.getElementById("wypQ").value=="No") 
+          {
+            //This will make the journey between Start and Destination.
               calculateAndDisplayRouteWithoutWyp(directionsService, directionsDisplay);
-          } else if(document.getElementById("wypQ").value=="Yes")  {
+          } else if(document.getElementById("wypQ").value=="Yes")  
+          {
+            //This will make the journey among Start, Destination and User defined stop point.
               calculateAndDisplayRoute(directionsService, directionsDisplay);
           }
         };
@@ -154,47 +170,61 @@
 
       }
 
-      function calculateAndDisplayRouteWithoutWyp(directionsService, directionsDisplay) {
+        //Without Stop journey Function.
+      function calculateAndDisplayRouteWithoutWyp(directionsService, directionsDisplay) 
+      {
         var selectedMode = document.getElementById('mode').value;
-        directionsService.route({
+        directionsService.route(
+        {
           origin: document.getElementById('start').value,
           destination: document.getElementById('end').value,
           //waypoints: waypts,
           //optimizeWaypoints: true,
           travelMode: google.maps.TravelMode[selectedMode]
-        }, function(response, status) {
-          if (status === 'OK') {
+        }, function(response, status) 
+        {
+          if (status === 'OK') 
+          {
             directionsDisplay.setDirections(response);
-          } else {
+          } else 
+          {
             window.alert('Directions request failed due to ' + status);
           }
         });
       }
-      function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+
+      //With Stop jounrey Function.
+      function calculateAndDisplayRoute(directionsService, directionsDisplay) 
+      {
         var waypts = [];
         var checkboxArray = document.getElementById('waypoints')
-        waypts.push({
-              location: checkboxArray.value,
-              stopover: true
-            });
+        waypts.push(
+        {
+          location: checkboxArray.value,
+          stopover: true
+        });
         var selectedMode = document.getElementById('mode').value;
-        directionsService.route({
+        directionsService.route(
+        {
           origin: document.getElementById('start').value,
           destination: document.getElementById('end').value,
           waypoints: waypts,
           optimizeWaypoints: true,
           travelMode: google.maps.TravelMode[selectedMode]
-        }, function(response, status) {
-          if (status === 'OK') {
+        }, function(response, status) 
+        {
+          if (status === 'OK') 
+          {
             directionsDisplay.setDirections(response);
-          } else {
+          } else 
+          {
             window.alert('Directions request failed due to ' + status);
           }
         });
       }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDohUWhL5FdgtM7p5cmqwHBuV9gn5NheDA&callback=initMap">
-    </script>
+  </script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDohUWhL5FdgtM7p5cmqwHBuV9gn5NheDA&callback=initMap">
+  </script>
   </body>
 </html>
